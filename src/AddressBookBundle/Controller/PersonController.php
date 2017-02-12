@@ -219,7 +219,7 @@ class PersonController extends Controller {
         $form = $this->createFormBuilder($email)
                 ->setAction($action)
                 ->add('address', 'text')
-                ->add('type', 'number')
+                ->add('type', 'integer')
                 ->add('save', 'submit', array('label' => 'Dodaj email'))
                 ->getForm();
         return $form;
@@ -228,7 +228,7 @@ class PersonController extends Controller {
         $form = $this->createFormBuilder($phone)
                 ->setAction($action)
                 ->add('number', 'text')
-                ->add('type', 'number')
+                ->add('type', 'integer')
                 ->add('save', 'submit', array('label' => 'Dodaj telefon'))
                 ->getForm();
         return $form;
