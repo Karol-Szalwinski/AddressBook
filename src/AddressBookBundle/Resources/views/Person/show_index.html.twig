@@ -7,6 +7,8 @@
     
     <div class="container">
         <h4>Osób w książce: {{ persons |length}}</h4>
+        <a href="{{ path("addressbook_person_newperson")}}" class="btn btn-large btn-info">Dodaj nową osobę</a>
+        <br>
     <table class="table"">
         <tr>
             <th> imię </th>
