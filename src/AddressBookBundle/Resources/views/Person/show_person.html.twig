@@ -1,0 +1,77 @@
+{% extends "::base.html.twig" %}
+
+
+
+{% block body %}
+    
+
+    <div class="container">
+        <h3>Strona osoby</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table">
+                    <tr>
+                        <th> Name: </th>
+                        <td> {{ person.name }}
+                    <tr>
+                    <tr>
+                        <th> Surname: </th>
+                        <td> {{ person.surname}}
+                    <tr>
+                    <tr>
+                        <th> Description: </th>
+                        <td> {{ person.description }}
+                    <tr>
+                </table>
+            </div>
+            <div class="col-md-4">        
+                <a href="{{ path("addressbook_person_modify", {"id":person.id})}}" class="btn btn-large btn-warning">Modify this person</a>
+                <br><br>
+                <a href="{{ path("addressbook_person_delete", {"id":person.id})}}" class="btn btn-large btn-danger">Delete this person</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h3> To są twoje telefony </h3>
+                {% if person.phones | length > 0%}
+                    <table class="table">
+                        <tr>
+                            <th> Phone:</th>
+                        </tr>
+                        {% for phone in person.phones %}
+
+                            <tr>
+                                <td> {{ phone.number }} </td>
+                            </tr>  
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p> There is no phone </p>
+
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <h3> To są adresy </h3>
+                {% if person.addresses | length > 0%}
+                    <table class="table">
+                        <tr>
+                            <th> City:</th>
+                            <th> Street </th>
+                        </tr>
+                        {% for address in person.addresses %}
+
+                            <tr>
+                                <td> {{ address.city }}  </td>
+                                <td>  {{ address.street }} {{ address.homeNumber }} / {{ address.localNumber }} </td>
+                            </tr>  
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p> There is no phone </p>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

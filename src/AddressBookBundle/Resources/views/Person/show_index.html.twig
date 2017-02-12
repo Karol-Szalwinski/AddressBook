@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Strona główna ksiązki adresowej{% endblock %}
+
+{% block body %}
+    <h3>Książka adresowa:</h3>
+    
+    <div class="container">
+        <h4>Osób w książce: {{ persons |length}}</h4>
+    <table class="table"">
+        <tr>
+            <th> imię </th>
+            <th> nazwisko </th>
+            <th> opis </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+        </tr>  
+        {% for person in persons %}
+            <tr>
+                <td> {{ person.name }} </td>
+                <td> {{ person.surname}} </td>
+                <td> {{ person.description }} </td>
+                <td> <a href="{{ path("addressbook_person_showperson", {"id":person.id})}}" class="btn btn-large btn-primary">Show</a> </td>
+                <td> <a href="{{ path("addressbook_person_modify", {"id":person.id})}}" class="btn btn-large btn-warning">Modify</a> </td>
+                <td> <a href="{{ path("addressbook_person_delete", {"id":person.id})}}" class="btn btn-large btn-danger">Delete</a> </td>
+            </tr>  
+        {% endfor %}
+    </table>
+    </div>
+
+{% endblock %}

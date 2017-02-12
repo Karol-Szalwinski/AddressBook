@@ -1,0 +1,39 @@
+{% extends "::base.html.twig" %}
+
+
+
+{% block body %}
+    <div class="container">
+        <h3>Dodaj nową osobę</h3>
+
+        {{ form_start(formPerson) }}
+        {{ form_widget(formPerson) }}
+        {{ form_end(formPerson)}}
+
+        <br>
+
+        {% if formAddress is defined %}
+            <h3>Dodaj nowy adres</h3>
+            {{ form_start(formAddress) }}
+            {{ form_widget(formAddress) }}
+            {{ form_end(formAddress)}}
+        {% endif %}
+        <br>
+
+        {% if formEmail is defined %}
+            <h3>Dodaj nowy email</h3>
+            {{ form_start(formEmail) }}
+            {{ form_widget(formEmail) }}
+            {{ form_end(formEmail)}}
+        {% endif %}
+        <br>
+
+        {% if formPhone is defined %}
+            <h3>Dodaj nowy telefon</h3>
+            {{ form_start(formPhone) }}
+            {{ form_widget(formPhone) }}
+            {{ form_end(formPhone)}}
+        {% endif %}
+
+    </div>
+{% endblock %}
