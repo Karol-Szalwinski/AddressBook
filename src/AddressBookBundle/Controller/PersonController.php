@@ -19,7 +19,7 @@ class PersonController extends Controller {
      */
     public function showIndexAction() {
         $repo = $this->getDoctrine()->getRepository("AddressBookBundle:Person");
-        $persons = $repo->findAll();
+        $persons = $repo->findOrderedByName();
 
         return $this->render('AddressBookBundle:Person:show_index.html.twig', ["persons" => $persons]);
     }
@@ -63,10 +63,12 @@ class PersonController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($person);
             $em->flush();
-            return $this->redirectToRoute('addressbook_person_showindex');
+            return $this->redirectToRoute('addressbook_person_showperson', [
+                        "id" => $person->getId(),
+            ]);
         }
-        
-        
+
+
         return $this->redirectToRoute('addressbook_person_newperson');
     }
 
@@ -94,17 +96,22 @@ class PersonController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($person);
             $em->flush();
-            return $this->redirectToRoute('addressbook_person_showindex');
+            return $this->redirectToRoute('addressbook_person_showperson', [
+                        "id" => $id,
+            ]);
         }
-        $action = $this->generateUrl('addressbook_person_createaddress', ["id" => $id]);
-        
+
+
         $address = new Address();
+        $action = $this->generateUrl('addressbook_person_createaddress', ["id" => $id]);
         $formAddress = $this->generateAddressForm($address, $action);
-        
+
         $email = new Email();
+        $action = $this->generateUrl('addressbook_person_createemail', ["id" => $id]);
         $formEmail = $this->generateEmailForm($email, $action);
-        
+
         $phone = new Phone();
+        $action = $this->generateUrl('addressbook_person_createphone', ["id" => $id]);
         $formPhone = $this->generatePhoneForm($phone, $action);
 
         return $this->render('AddressBookBundle:Person:new.html.twig', [
@@ -153,7 +160,7 @@ class PersonController extends Controller {
         }
         return $this->redirectToRoute('addressbook_person_modify', ["id" => $id]);
     }
-    
+
     /**
      * @Route("{id}/addEmail", requirements={"id" : "\d+"})
      * @Method("POST")
@@ -170,7 +177,7 @@ class PersonController extends Controller {
             $email = $form->getData();
             $email->setPerson($person);
 
-            $person->addAddress($email);
+            $person->addEmail($email);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($email);
@@ -178,7 +185,7 @@ class PersonController extends Controller {
         }
         return $this->redirectToRoute('addressbook_person_modify', ["id" => $id]);
     }
-    
+
     /**
      * @Route("{id}/addPhone", requirements={"id" : "\d+"})
      * @Method("POST")
@@ -186,7 +193,7 @@ class PersonController extends Controller {
     public function createPhoneAction(Request $request, $id) {
 
         $phone = new Phone();
-        $form = $this->generateAddressForm($phone, null);
+        $form = $this->generatePhoneForm($phone, null);
         $form->handleRequest($request);
         if ($form->isSubmitted() and $form->isValid()) {
             $repo = $this->getDoctrine()->getRepository("AddressBookBundle:Person");
@@ -195,14 +202,14 @@ class PersonController extends Controller {
             $phone = $form->getData();
             $phone->setPerson($person);
 
-            $person->addAddress($phone);
+            $person->addPhone($phone);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($phone);
             $em->flush();
         }
         return $this->redirectToRoute('addressbook_person_modify', ["id" => $id]);
-    }  
+    }
 
     private function generateAddressForm($address, $action) {
         $form = $this->createFormBuilder($address)
@@ -215,48 +222,25 @@ class PersonController extends Controller {
                 ->getForm();
         return $form;
     }
+
     private function generateEmailForm($email, $action) {
         $form = $this->createFormBuilder($email)
                 ->setAction($action)
                 ->add('address', 'text')
-                ->add('type', 'integer')
+                ->add('type', 'text')
                 ->add('save', 'submit', array('label' => 'Dodaj email'))
                 ->getForm();
         return $form;
     }
+
     private function generatePhoneForm($phone, $action) {
         $form = $this->createFormBuilder($phone)
                 ->setAction($action)
                 ->add('number', 'text')
-                ->add('type', 'integer')
+                ->add('type', 'text')
                 ->add('save', 'submit', array('label' => 'Dodaj telefon'))
                 ->getForm();
         return $form;
-    }
-    
-    
-    
-    
-    /**
-     * @Route("/add")
-     */
-    public function addAction() {
-        $repo = $this->getDoctrine()->getRepository("AddressBookBundle:Person");
-        $em = $this->getDoctrine()->getManager();
-        $person = $repo->find(3);
-
-        $address = new Address();
-        $address->setCity("New York");
-        $address->setStreet("Polna");
-        $address->setHomeNumber(10);
-        $address->setLocalNumber(99);
-        $address->setPerson($person);
-
-        $person->addAddress($address);
-
-        $em->persist($address);
-        $em->flush();
-        return $this->redirectToRoute("addressbook_person_showindex");
     }
 
 }

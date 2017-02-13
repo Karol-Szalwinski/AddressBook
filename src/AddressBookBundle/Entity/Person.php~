@@ -43,17 +43,17 @@ class Person
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="person", cascade={"persist"})
      */
     private $addresses;
     
     /**
-     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person", cascade={"persist"})
      */
     private $phones;
     
     /**
-     * @ORM\OneToMany(targetEntity="Email", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="person", cascade={"persist"})
      */
     private $emails;
     
@@ -210,5 +210,38 @@ class Person
     public function getPhones()
     {
         return $this->phones;
+    }
+
+    /**
+     * Add emails
+     *
+     * @param \AddressBookBundle\Entity\Email $emails
+     * @return Person
+     */
+    public function addEmail(\AddressBookBundle\Entity\Email $emails)
+    {
+        $this->emails[] = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Remove emails
+     *
+     * @param \AddressBookBundle\Entity\Email $emails
+     */
+    public function removeEmail(\AddressBookBundle\Entity\Email $emails)
+    {
+        $this->emails->removeElement($emails);
+    }
+
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }

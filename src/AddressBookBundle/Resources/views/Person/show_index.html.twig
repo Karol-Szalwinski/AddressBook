@@ -6,7 +6,7 @@
     <h3>Książka adresowa:</h3>
     
     <div class="container">
-        <h4>Osób w książce: {{ persons |length}}</h4>
+        <h4>Osób w książce: {{ persons | length}}</h4>
         <a href="{{ path("addressbook_person_newperson")}}" class="btn btn-large btn-info">Dodaj nową osobę</a>
         <br>
     <table class="table"">
@@ -23,9 +23,9 @@
                 <td> {{ person.name }} </td>
                 <td> {{ person.surname}} </td>
                 <td> {{ person.description }} </td>
-                <td> <a href="{{ path("addressbook_person_showperson", {"id":person.id})}}" class="btn btn-large btn-primary">Show</a> </td>
-                <td> <a href="{{ path("addressbook_person_modify", {"id":person.id})}}" class="btn btn-large btn-warning">Modify</a> </td>
-                <td> <a href="{{ path("addressbook_person_delete", {"id":person.id})}}" class="btn btn-large btn-danger">Delete</a> </td>
+                <td> <a href="{{ path("addressbook_person_showperson", {"id":person.id})}}" class="btn btn-large btn-primary">Pokaż</a> </td>
+                <td> <a href="{{ path("addressbook_person_modify", {"id":person.id})}}" class="btn btn-large btn-warning">Edytuj</a> </td>
+                <td> <a href="{{ path("addressbook_person_delete", {"id":person.id})}}" class="btn btn-large btn-danger">Usuń</a> </td>
             </tr>  
         {% endfor %}
     </table>

@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class PersonRepository extends EntityRepository
 {
+    public function findOrderedByName() {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery("
+                SELECT p FROM AddressBookBundle:Person p ORDER BY p.name
+            ");
+        $persons = $query->getResult();
+        return $persons;
+    }
 }

@@ -4,7 +4,6 @@
 
 {% block body %}
     
-
     <div class="container">
         <h3>Strona osoby</h3>
         <div class="row">
@@ -28,9 +27,9 @@
             <div class="col-md-4">
                 <a href="{{ path("addressbook_person_showindex")}}" class="btn btn-large btn-info">Powrót na główną</a>
                 <br><br>
-                <a href="{{ path("addressbook_person_modify", {"id":person.id})}}" class="btn btn-large btn-warning">Modify this person</a>
+                <a href="{{ path("addressbook_person_modify", {"id":person.id})}}" class="btn btn-large btn-warning">Zmień dane</a>
                 <br><br>
-                <a href="{{ path("addressbook_person_delete", {"id":person.id})}}" class="btn btn-large btn-danger">Delete this person</a>
+                <a href="{{ path("addressbook_person_delete", {"id":person.id})}}" class="btn btn-large btn-danger">Usuń tą osobę</a>
             </div>
         </div>
         <div class="row">
@@ -49,7 +48,7 @@
                         {% endfor %}
                     </table>
                 {% else %}
-                    <p> There is no phone </p>
+                    <p> Nie ma telefonu </p>
 
                 {% endif %}
             </div>
@@ -58,7 +57,7 @@
                 {% if person.addresses | length > 0%}
                     <table class="table">
                         <tr>
-                            <th> City:</th>
+                            <th> City</th>
                             <th> Street </th>
                         </tr>
                         {% for address in person.addresses %}
@@ -70,10 +69,32 @@
                         {% endfor %}
                     </table>
                 {% else %}
-                    <p> There is no phone </p>
+                    <p> Nie ma adresu </p>
 
                 {% endif %}
             </div>
+            <div class="col-md-4">
+                <h3> To są emaile </h3>
+                {% if person.emails | length > 0%}
+                    <table class="table">
+                        <tr>
+                            <th> Email</th>
+                            <th> Typ </th>
+                        </tr>
+                        {% for email in person.emails %}
+
+                            <tr>
+                                <td> {{ email.address }}  </td>
+                                <td>  {{ email.type }} </td>
+                            </tr>  
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p> Nie ma adresu email </p>
+
+                {% endif %}
+            </div>
+            
         </div>
     </div>
 
