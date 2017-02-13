@@ -1,12 +1,12 @@
 {% extends "::base.html.twig" %}
 
-
+{% block title %}Dodawanie lub modyfikacja osoby{% endblock %}
 
 {% block body %}
     <div class="container">
         <a href="{{ path("addressbook_person_showindex")}}" class="btn btn-large btn-info">Powrót na główna</a>
         <br>
-        <h3>Dodaj nową osobę</h3>
+        <h3>Dane osobowe</h3>
 
         {{ form_start(formPerson) }}
         {{ form_widget(formPerson) }}

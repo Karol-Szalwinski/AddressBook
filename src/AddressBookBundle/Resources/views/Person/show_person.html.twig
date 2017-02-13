@@ -1,5 +1,6 @@
 {% extends "::base.html.twig" %}
 
+{% block title %} Strona osoby {% endblock %}
 
 
 {% block body %}
@@ -11,15 +12,15 @@
                 <table class="table">
                     
                     <tr>
-                        <th> Name: </th>
+                        <th> Imię </th>
                         <td> {{ person.name }}
                     <tr>
                     <tr>
-                        <th> Surname: </th>
+                        <th> Nazwisko </th>
                         <td> {{ person.surname}}
                     <tr>
                     <tr>
-                        <th> Description: </th>
+                        <th> Opis </th>
                         <td> {{ person.description }}
                     <tr>
                 </table>
@@ -32,18 +33,21 @@
                 <a href="{{ path("addressbook_person_delete", {"id":person.id})}}" class="btn btn-large btn-danger">Usuń tą osobę</a>
             </div>
         </div>
+            <hr>
         <div class="row">
             <div class="col-md-4">
                 <h3> To są twoje telefony </h3>
                 {% if person.phones | length > 0%}
                     <table class="table">
                         <tr>
-                            <th> Phone:</th>
+                            <th> Numer</th>
+                            <th> Typ </th>
                         </tr>
                         {% for phone in person.phones %}
 
                             <tr>
                                 <td> {{ phone.number }} </td>
+                                <td> {{ phone.type }} </td>
                             </tr>  
                         {% endfor %}
                     </table>
@@ -57,8 +61,8 @@
                 {% if person.addresses | length > 0%}
                     <table class="table">
                         <tr>
-                            <th> City</th>
-                            <th> Street </th>
+                            <th> Miasto</th>
+                            <th> Ulica i nr </th>
                         </tr>
                         {% for address in person.addresses %}
 
