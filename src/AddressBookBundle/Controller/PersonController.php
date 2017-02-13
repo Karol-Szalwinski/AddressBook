@@ -101,7 +101,6 @@ class PersonController extends Controller {
             ]);
         }
 
-
         $address = new Address();
         $action = $this->generateUrl('addressbook_person_createaddress', ["id" => $id]);
         $formAddress = $this->generateAddressForm($address, $action);
